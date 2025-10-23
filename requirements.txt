@@ -3,7 +3,8 @@ cachetools>=5.3
 python-dotenv>=1.0
 uvicorn[standard]>=0.20
 fastapi>=0.95
-langchain>=0.0.320
+langchain
+langchain-google-genai
 google-cloud-aiplatform>=1.38
 pytest>=7.2
 httpx>=0.24
