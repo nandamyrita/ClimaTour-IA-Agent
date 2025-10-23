@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 from dotenv import load_dotenv
 from requests.exceptions import RequestException, HTTPError
 from langchain.tools import tool 
