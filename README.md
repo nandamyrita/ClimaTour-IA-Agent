@@ -23,7 +23,7 @@ climatour/
 │
 ├── backend/
 │   ├── __init__.py
-│   ├── main.py
+│   ├── app.py
 │   ├── prompts.py
 │   ├── tools/
 │   │   ├── __init__.py
