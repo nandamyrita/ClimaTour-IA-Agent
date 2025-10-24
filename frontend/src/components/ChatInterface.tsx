@@ -73,7 +73,7 @@ export function ChatInterface() {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       
-      if (process.env.NODE_ENV === 'development') {
+      if (typeof window !== "undefined" && window.location.hostname === "localhost") {
         console.warn("⚠️ Backend não conectado:", BACKEND_URL);
       }
       
@@ -103,7 +103,7 @@ export function ChatInterface() {
     const welcomeMessage: Message = {
       id: Date.now().toString(),
       role: "assistant",
-      content: "Olá! Sou o ClimaTour, seu assistente de viagem inteligente. 🌍✨\nPara começar, me diga: de qual estado brasileiro você é?",
+      content: "Olá! Sou o ClimaTour, seu assistente de viagem inteligente. 🌍✨\nPara começar, me diga: de qual estado brasileiro você é? \nDigite 'Sair' para  finalizar o chat.",
       timestamp: new Date(),
     };
     setMessages([welcomeMessage]);
