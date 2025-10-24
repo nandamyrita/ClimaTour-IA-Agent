@@ -62,7 +62,7 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 
 ## 🔑 Configuração do Ambiente
 
-Crie um arquivo `.env` na pasta **backend/** com o seguinte conteúdo:
+Crie um arquivo `.env` na raiz:
 
 ```bash
 GOOGLE_API_KEY=YOUR_API_KEY_HERE
@@ -77,7 +77,7 @@ OPENWEATHER_API_KEY=YOUR_OPENWEATHER_KEY_HERE
 
 ```bash
 cd backend
-python -m venv venv
+python -m venv venv ou py -m venv venv
 venv\Scripts\activate   # Windows
 source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 
 ---
 
-## 💻 Rodando o Servidor Backend
+## 💻 Rodando o Servidor (na raiz)
 
 ```bash
 uvicorn backend.app:app --reload
