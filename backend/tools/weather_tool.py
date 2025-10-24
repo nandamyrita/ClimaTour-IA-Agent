@@ -4,7 +4,9 @@ from dotenv import load_dotenv
 from requests.exceptions import RequestException, HTTPError
 from langchain.tools import tool 
 
-load_dotenv()
+dotenv_path = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(dotenv_path)
+print("GOOGLE_API_KEY:", os.getenv("GOOGLE_API_KEY"))
 
 # URL da API OpenWeather 
 OPENWEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
@@ -70,8 +72,9 @@ def _map_weather_condition(description: str) -> str:
 
 
 # Ferramenta para obter o clima por estado
-@tool(description="Obtém o clima atual de um estado brasileiro fornecido pelo usuário.")
+@tool
 def get_weather_by_state(state_name: str) -> str:
+    
     
     api_key = os.getenv("OPENWEATHER_API_KEY")
     if not api_key:
