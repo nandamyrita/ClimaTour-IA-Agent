@@ -53,7 +53,7 @@ climatour/
 
 Antes de rodar o projeto, certifique-se de ter instalado:
 
-* [Python 3.10+](https://www.python.org/downloads/)
+* [Python 3.11](https://www.python.org/downloads/)
 * [Node.js 18+](https://nodejs.org/)
 * [npm](https://www.npmjs.com/)
 * Uma chave de API do **Gemini AI** (Google AI Studio)
@@ -88,7 +88,7 @@ pip install -r requirements.txt
 ## 💻 Rodando o Servidor Backend
 
 ```bash
-uvicorn backend.main:app --reload
+uvicorn backend.app:app --reload
 ```
 
 O servidor será iniciado em:
