@@ -6,20 +6,40 @@ from langchain.tools import tool
 
 load_dotenv()
 
+# URL da API OpenWeather 
 OPENWEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
+
+# Mapeamento de estados brasileiros para suas capitais
 STATE_TO_CITY = {
-    "acre": "Rio Branco", "alagoas": "Maceió", "amapa": "Macapá", "amazonas": "Manaus",
-    "bahia": "Salvador", "ceara": "Fortaleza", "distrito federal": "Brasília",
-    "espirito santo": "Vitória", "goias": "Goiânia", "maranhao": "São Luís",
-    "mato grosso": "Cuiabá", "mato grosso do sul": "Campo Grande",
-    "minas gerais": "Belo Horizonte", "para": "Belém", "paraiba": "João Pessoa",
-    "parana": "Curitiba", "pernambuco": "Recife", "piaui": "Teresina",
-    "rio de janeiro": "Rio de Janeiro", "rio grande do norte": "Natal",
-    "rio grande do sul": "Porto Alegre", "rondonia": "Porto Velho",
-    "roraima": "Boa Vista", "santa catarina": "Florianópolis",
-    "sao paulo": "São Paulo", "sergipe": "Aracaju", "tocantins": "Palmas"
+    "acre": "Rio Branco", "ac": "Rio Branco",
+    "alagoas": "Maceió", "al": "Maceió",
+    "amazonas": "Manaus", "am": "Manaus",
+    "bahia": "Salvador", "ba": "Salvador",
+    "ceara": "Fortaleza", "ce": "Fortaleza",
+    "distrito federal": "Brasília", "df": "Brasília",
+    "espirito santo": "Vitória", "es": "Vitória",
+    "goias": "Goiânia", "go": "Goiânia",
+    "maranhao": "São Luís", "ma": "São Luís",
+    "mato grosso": "Cuiabá", "mt": "Cuiabá",
+    "mato grosso do sul": "Campo Grande", "ms": "Campo Grande",
+    "minas gerais": "Belo Horizonte", "mg": "Belo Horizonte",
+    "para": "Belém", "pa": "Belém",
+    "paraiba": "João Pessoa", "pb": "João Pessoa",
+    "parana": "Curitiba", "pr": "Curitiba",
+    "pernambuco": "Recife", "pe": "Recife",
+    "piaui": "Teresina", "pi": "Teresina",
+    "rio de janeiro": "Rio de Janeiro", "rj": "Rio de Janeiro",
+    "rio grande do norte": "Natal", "rn": "Natal",
+    "rio grande do sul": "Porto Alegre", "rs": "Porto Alegre",
+    "rondonia": "Porto Velho", "ro": "Porto Velho",
+    "roraima": "Boa Vista", "rr": "Boa Vista",
+    "santa catarina": "Florianópolis", "sc": "Florianópolis",
+    "sao paulo": "São Paulo", "sp": "São Paulo",
+    "sergipe": "Aracaju", "se": "Aracaju",
+    "tocantins": "Palmas", "to": "Palmas"
 }
 
+# Função para normalizar nomes de estados
 def _normalize_state_name(state_name: str) -> str:
     
     replacements = {
@@ -31,17 +51,25 @@ def _normalize_state_name(state_name: str) -> str:
         state_norm = state_norm.replace(accented, unaccented)
     return state_norm
 
+# Função para mapear descrições de clima para categorias
 def _map_weather_condition(description: str) -> str:
     desc_lower = description.lower()
-    if any(k in desc_lower for k in ["céu limpo", "ensolarado"]):
-        return "Ensolarado"
-    if any(k in desc_lower for k in ["chuva", "garoa", "tempestade", "trovoada"]):
-        return "Chuvoso"
-    if any(k in desc_lower for k in ["nublado", "nuvens", "névoa", "nevoeiro"]):
+    if any(k in desc_lower for k in ["céu limpo", "clear"]):
+        return "Céu Limpo"
+    if any(k in desc_lower for k in ["few clouds", "scattered clouds", "broken clouds"]):
+        return "Parcialmente Nublado"
+    if any(k in desc_lower for k in ["nublado", "cloudy", "overcast"]):
         return "Nublado"
+    if any(k in desc_lower for k in ["chuva", "rain", "garoa", "tempestade", "trovoada"]):
+        return "Chuvoso"
+    if any(k in desc_lower for k in ["névoa", "mist", "fog", "haze"]):
+        return "Nebuloso"
+    if any(k in desc_lower for k in ["snow", "neve"]):
+        return "Nevando"
     return description.capitalize()
 
 
+# Ferramenta para obter o clima por estado
 @tool(description="Obtém o clima atual de um estado brasileiro fornecido pelo usuário.")
 def get_weather_by_state(state_name: str) -> str:
     

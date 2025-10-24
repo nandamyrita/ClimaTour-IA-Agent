@@ -31,7 +31,7 @@ export function ChatInterface() {
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
-    // Adiciona mensagem do usuário
+    
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -62,7 +62,7 @@ export function ChatInterface() {
 
       const data = await response.json();
 
-      // Adiciona resposta do assistente
+      
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -72,12 +72,12 @@ export function ChatInterface() {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      // Silencia o erro no console em desenvolvimento
+      
       if (process.env.NODE_ENV === 'development') {
         console.warn("⚠️ Backend não conectado:", BACKEND_URL);
       }
       
-      // Mensagem de erro amigável
+      
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -103,7 +103,7 @@ export function ChatInterface() {
     const welcomeMessage: Message = {
       id: Date.now().toString(),
       role: "assistant",
-      content: "Olá! Sou o ClimaTour, seu assistente de viagem inteligente. 🌍✨\n\nPara começar, me diga: de qual estado brasileiro você é?",
+      content: "Olá! Sou o ClimaTour, seu assistente de viagem inteligente. 🌍✨\nPara começar, me diga: de qual estado brasileiro você é?",
       timestamp: new Date(),
     };
     setMessages([welcomeMessage]);
@@ -111,7 +111,7 @@ export function ChatInterface() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      {/* Header with gradient */}
+   
       <div className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 shadow-lg flex-shrink-0">
         <div className="container mx-auto max-w-5xl px-3 sm:px-4 md:px-6 py-3 sm:py-4">
           <div className="flex items-center gap-2 sm:gap-3">
@@ -130,13 +130,13 @@ export function ChatInterface() {
         </div>
       </div>
 
-      {/* Chat Area */}
+      
       <div className="flex-1 overflow-hidden flex flex-col">
         {messages.length === 0 ? (
           <WelcomeScreen onStart={handleStartConversation} />
         ) : (
           <>
-            {/* Messages */}
+            
             <div className="flex-1 overflow-y-auto">
               <div className="container mx-auto max-w-5xl px-3 sm:px-4 md:px-6 py-4 sm:py-6">
                 <div className="space-y-4 sm:space-y-6">
@@ -165,7 +165,7 @@ export function ChatInterface() {
               </div>
             </div>
 
-            {/* Input Area */}
+            
             <div className="border-t bg-white flex-shrink-0 shadow-lg">
               <div className="container mx-auto max-w-5xl px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                 <div className="flex gap-2 sm:gap-3 items-end">
