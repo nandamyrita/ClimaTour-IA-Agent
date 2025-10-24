@@ -39,7 +39,7 @@ climatour/
 │       ├── main.jsx
 │       ├── App.jsx
 │       └── components/
-│           └── Chat.jsx
+│           └── ...
 │
 ├── .env
 ├── .gitignore
